@@ -10,19 +10,18 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/api/company")
-
+@RequestMapping("/api/company")  
 public class CompanyController {
 
     @Autowired
     private CompanyService companyService;
 
-    @PostMapping("/api/{userId}")
-    public ResponseEntity<?> postAd(@PathVariable Long userId, @ModelAttribute AdDTO adDTO) throws IOException{
+    @PostMapping("/ad/{userId}")
+    public ResponseEntity<?> postAd(@PathVariable Long userId, @ModelAttribute AdDTO adDTO) throws IOException {
         boolean success = companyService.postAd(userId, adDTO);
-        if (success){
+        if (success) {
             return ResponseEntity.status(HttpStatus.OK).build();
-        }else {
+        } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
