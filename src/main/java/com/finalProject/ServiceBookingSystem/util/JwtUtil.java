@@ -23,7 +23,7 @@ public class JwtUtil {
 
     public String generateToken(String userName, String role) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("roles", List.of("ROLE_COMPANY"));
+        claims.put("roles", List.of(role.startsWith("ROLE_") ? role : "ROLE_" + role));
         return createToken(claims, userName);
     }
 
@@ -32,7 +32,7 @@ public class JwtUtil {
                 .setClaims(claims)
                 .setSubject(userName)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30))
                 .signWith(getSignKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
