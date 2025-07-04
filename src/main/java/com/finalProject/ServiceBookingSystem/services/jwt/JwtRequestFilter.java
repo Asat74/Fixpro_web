@@ -38,7 +38,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
-            System.out.println("Raw token received: " + token.substring(0, 10) + "..."); // Log first 10 chars
+            System.out.println("Raw token received: " + token.substring(0, 10) + "...");// Log first 10 chars
 
             try {
                 username = jwtUtil.extractUsername(token);

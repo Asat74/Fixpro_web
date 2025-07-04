@@ -22,7 +22,7 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
+@EnableMethodSecurity(securedEnabled = true)
 
 public class WebSecurityConfig {
     private final JwtRequestFilter jwtRequestFilter;
@@ -44,8 +44,9 @@ public class WebSecurityConfig {
                                 "/ads",
                                 "/search/{service}"
                         ).permitAll()
-                        .requestMatchers("/api/company/ad/**").hasRole("COMPANY")
-                        .requestMatchers("/api/**").authenticated()
+                        .requestMatchers("/api/**").authenticated() // Require auth for file downloads
+                        .anyRequest().authenticated()
+
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
